@@ -47,6 +47,7 @@ body {
 .material-icons {
   cursor: pointer;
   user-select: none;
+  font-size: 42px;
 }
 
 .form-control.ng-invalid.ng-touched {

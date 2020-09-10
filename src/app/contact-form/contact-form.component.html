@@ -5,7 +5,7 @@
       required
       minlength="3"
       maxlength="10"
-      pattern="orange"
+      pattern="micron"
       ngModel
       name=firstName
       #varFirstName="ngModel"
@@ -43,7 +43,7 @@
 
   <div class="form-group">
     <label for="contactMethod"></label>
-    <select ngModel name="contactMethod" id="contactMethod">
+    <select class="form-control" ngModel name="contactMethod" id="contactMethod">
       <option value=""></option>
       <!-- 上面的空Option 代表預設值是空(使用者剛開始還沒選) -->
       <option *ngFor="let method of contactMethodList" [value]="method.id">
@@ -58,8 +58,7 @@
       {{ method.name }}
     </label>
   </div>
-
-
-
-  <button class="btn btn-primary" [disabled]="!f.valid">go</button>
+  <button class="btn btn-primary" [disabled]="!f.valid">submit</button>
+  <br>
+  <br>
 </form>

@@ -1,16 +1,117 @@
+<br><br><br>
 <section class="todoapp">
 
-  <header class="header">
-	<h1>todos</h1>
+	<header class="header">
+		<h1>todos</h1>
     <input
       class="new-todo"
       placeholder="What needs to be done?"
       autofocus
-      [(ngModel)] = "InputText"
+      (keyup.enter)="addTodo($event.target)"
     >
   </header>
 
+  <section
+    class="main"
+    *ngIf="getAllList().length"
+  >
+
+    <input
+      id="toggle-all"
+      class="toggle-all"
+      type="checkbox"
+      *ngIf="getAllList().length"
+      #toggleall
+      [checked]="allCompleted()"
+      (click)="setAllTo(toggleall.checked)"
+    >
+    <label for="toggle-all"></label>
+
+    <ul class="todo-list">
+      <li
+        *ngFor="let todo of getList(); let i = index"
+        [class.completed]="todo.done"
+        [class.editing]="todo.editing"
+      >
+        <div class="view">
+          <input
+            class="toggle"
+            type="checkbox"
+            (click)="todo.toggleCompletion()"
+            [checked]="todo.done"
+          >
+          <label (dblclick)="edit(todo)">{{ todo.getTitle() }}</label>
+          <button
+            class="destroy"
+            (click)="remove(i)"
+          ></button>
+        </div>
+        <input
+          class="edit"
+          #editedtodo
+          *ngIf="todo.editing"
+          [value]="todo.getTitle()"
+          (blur)="update(todo, editedtodo.value)"
+          (keyup.enter)="update(todo, editedtodo.value)"
+          (keyup.escape)="cancelEditing(todo)"
+        >
+      </li>
+    </ul>
+
+  </section>
+
+  <footer
+    class="footer"
+    *ngIf="getAllList().length"
+  >
+
+    <span class="todo-count">
+      <strong>{{ getRemainingList().length }}</strong>
+      {{ getRemainingList().length ? 'item' : 'items'}} left
+    </span>
+
+    <ul class="filters">
+
+      <li>
+        <a
+         href="javascript:;"
+         [class.selected]="checkStatus(todoStatusType.All)"
+         (click)="setStatus(todoStatusType.All)"
+        >
+          All
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="javascript:;"
+          [class.selected]="checkStatus(todoStatusType.Active)"
+          (click)="setStatus(todoStatusType.Active)"
+        >
+          Active
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="javascript:;"
+          [class.selected]="checkStatus(todoStatusType.Completed)"
+          (click)="setStatus(todoStatusType.Completed)"
+        >
+          Completed
+        </a>
+      </li>
+
+    </ul>
+
+    <button
+      class="clear-completed"
+      *ngIf="getCompletedList().length"
+      (click)="removeCompleted()"
+    >
+      Clear completed
+    </button>
+
+	</footer>
+
 </section>
-<br>
-{{InputText}}
-<br>
