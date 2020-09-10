@@ -1,0 +1,18 @@
+<button class="btn btn-primary" (click)="isClicked()">change mode</button>
+<br>
+<br>
+<span class="material-icons">
+    {{lockStatus}}
+</span>
+
+
+<!-- Method to chane icons -->
+<div class="collapsible-header" (click)="showFirst=!showFirst">
+  <i class="material-icons" *ngIf="showFirst">flight_land</i>
+  <i class="material-icons" *ngIf="!showFirst">flight_takeoff</i>
+</div>
+
+<!-- <button class="btn btn-primary" (click)="isClicked()">Save-1</button>
+<br>
+<button [style.backgroundColor] = "isActive">aaaa</button> -->
+

@@ -1,0 +1,13 @@
+.material-icons {
+  cursor: pointer;
+  user-select: none;
+  /* position: relative; */
+
+
+}
+.heartnums {
+  position: relative;
+  top: -5px;
+  left: 5px;
+
+}

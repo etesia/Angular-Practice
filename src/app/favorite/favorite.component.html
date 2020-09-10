@@ -1,0 +1,8 @@
+<h1>favorite component works!</h1>
+
+<span
+  class="glyphicon"
+  [class.glyphicon-star]="isFavorite"
+  [class.glyphicon-star-empty]="!isFavorite"
+  (click)="onClick()"
+  ></span>

@@ -1,0 +1,65 @@
+<form #f="ngForm" (ngSubmit)="submit(f)">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input
+      required
+      minlength="3"
+      maxlength="10"
+      pattern="orange"
+      ngModel
+      name=firstName
+      #varFirstName="ngModel"
+      (change)="log(varFirstName)"
+      id=firstName
+      type="text"
+      class="form-control">
+    <div
+      class="alert alert-danger"
+      *ngIf="varFirstName.touched && !varFirstName.valid">
+      <div *ngIf="varFirstName.errors.required">
+        First name is required!
+      </div>
+      <div *ngIf="varFirstName.errors.minlength">
+        Min length is {{varFirstName.errors.minlength.requiredLength}}
+      </div>
+      <div *ngIf="varFirstName.errors.pattern">
+        Do not match the pattern
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="form-group">
+    <label for="comment">Your Comment</label>
+    <textarea ngModel name="comment" id="comment" cols="30" rows="10" class="form-control"></textarea>
+  </div>
+  <br>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ngModel name="isSub"> Sub to mailing list!
+    </label>
+  </div>
+  <p>{{ f.value | json }}</p>
+
+  <div class="form-group">
+    <label for="contactMethod"></label>
+    <select ngModel name="contactMethod" id="contactMethod">
+      <option value=""></option>
+      <!-- 上面的空Option 代表預設值是空(使用者剛開始還沒選) -->
+      <option *ngFor="let method of contactMethodList" [value]="method.id">
+        {{ method.name }}
+      </option>
+    </select>
+  </div>
+
+  <div *ngFor="let method of contactMethodList">
+    <label>
+      <input  ngModel type="radio" name="contactMethod" [value]="method.id">
+      {{ method.name }}
+    </label>
+  </div>
+
+
+
+  <button class="btn btn-primary" [disabled]="!f.valid">go</button>
+</form>

@@ -1,0 +1,53 @@
+<form #ff="ngForm" (ngSubmit)="courseSubmit(ff)" >
+
+  <div class="form-group">
+    <label for="courseName" id="courseName">Course Name</label>
+    <input
+      ngModel
+      required
+      type="text"
+      name="courseName"
+      class="form-control"
+      minlength='5'
+      (change)="onChange(courseName)"
+      #courseName="ngModel">
+    <div *ngIf="courseName.touched && courseName.invalid">
+      <div class="alert alert-danger" *ngIf="courseName.errors.required">Course name is required</div>
+      <div class="alert alert-danger" *ngIf="courseName.errors.minlength">min length is {{courseName.errors.minlength.requiredLength}}</div>
+      <!-- <div *ngIf="!courseName.errors.required" class="alert alert-danger">Course name is required</div> -->
+    </div>
+  </div>
+
+
+  <div>
+    <label for="categoryName" id="categoryName">Category</label>
+    <select
+    required
+    ngModel name="categoryName"
+    id="categoryName"
+    #categoryName="ngModel"
+    class="form-control"
+    (change)="onChange(categoryName)">
+      <option value=""></option>
+      <option *ngFor="let course of courseies" [value]="course.id">
+        {{ course.name }}
+      </option>
+
+    </select>
+
+    <div *ngIf="categoryName.touched && categoryName.value===''">
+      <div class="alert alert-danger">
+        <div>Category is required</div>
+      </div>
+    </div>
+
+
+  </div>
+  <br>
+  <input ngModel name="moneyBack" #moneyBack="ngModel" type="checkbox"> 30 day money back
+  <br>
+
+  <p>{{ ff.value | json }}</p>
+
+  <button class="btn btn-primary" [disabled]="ff.invalid">Submit</button>
+</form>
